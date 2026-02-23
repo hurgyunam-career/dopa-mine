@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import 'package:dopa_mine/constants/app_strings.dart';
 import 'package:dopa_mine/data/exercise_seed.dart';
 import 'package:dopa_mine/models/exercise.dart';
 import 'package:dopa_mine/models/workout_session.dart';
@@ -43,7 +44,7 @@ class WorkoutProvider extends ChangeNotifier {
   }) async {
     final Exercise? exercise = _selectedExercise;
     if (exercise == null) {
-      throw StateError('No selected exercise.');
+      throw StateError(AppStrings.noSelectedExerciseError);
     }
 
     _isSaving = true;

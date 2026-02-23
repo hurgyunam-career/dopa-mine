@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:dopa_mine/constants/app_constants.dart';
+import 'package:dopa_mine/constants/app_strings.dart';
 import 'package:dopa_mine/models/exercise.dart';
 import 'package:dopa_mine/models/workout_session.dart';
 import 'package:dopa_mine/widgets/content_frame.dart';
@@ -29,7 +31,9 @@ class _ReportScreenState extends State<ReportScreen> {
         return;
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${widget.points} 포인트가 지급되었습니다.')),
+        SnackBar(
+          content: Text('${widget.points}${AppStrings.pointRewardSuffix}'),
+        ),
       );
     });
   }
@@ -37,40 +41,46 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('리포트')),
+      appBar: AppBar(title: const Text(AppStrings.reportTitle)),
       body: SafeArea(
         child: ContentFrame(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                '운동 완료!',
+                AppStrings.reportDone,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const SizedBox(height: 12),
-              Text('종목: ${widget.exercise.name}'),
-              Text('소요 시간: ${_formatDuration(widget.session.duration)}'),
-              Text('수행 횟수: ${widget.session.repetitionCount}회'),
-              Text('획득 포인트: +${widget.points}'),
+              const SizedBox(height: AppLayout.mediumSpacing),
+              Text('${AppStrings.reportExercisePrefix}${widget.exercise.name}'),
+              Text(
+                '${AppStrings.reportDurationPrefix}${_formatDuration(widget.session.duration)}',
+              ),
+              Text(
+                '${AppStrings.reportCountPrefix}${widget.session.repetitionCount}${AppStrings.repetitionUnit}',
+              ),
+              Text('${AppStrings.reportPointPrefix}${widget.points}'),
               const Spacer(),
             ],
           ),
         ),
       ),
       bottomNavigationBar: SafeArea(
-        minimum: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+        minimum: AppLayout.bottomBarInsets,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppLayout.pagePadding,
+          ),
           child: SizedBox(
             width: double.infinity,
-            height: 60,
+            height: AppLayout.bottomButtonHeight,
             child: FilledButton(
               onPressed: () {
                 Navigator.of(context).popUntil((Route<dynamic> route) {
                   return route.isFirst;
                 });
               },
-              child: const Text('홈으로'),
+              child: const Text(AppStrings.goHome),
             ),
           ),
         ),
@@ -81,6 +91,6 @@ class _ReportScreenState extends State<ReportScreen> {
   String _formatDuration(Duration duration) {
     final int minutes = duration.inMinutes.remainder(60);
     final int seconds = duration.inSeconds.remainder(60);
-    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    return '${minutes.toString().padLeft(2, AppStrings.timePaddingChar)}:${seconds.toString().padLeft(2, AppStrings.timePaddingChar)}';
   }
 }

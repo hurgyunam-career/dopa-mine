@@ -11,16 +11,17 @@
 - `docs/README.md`: 문서 인덱스와 운영 규칙
 - `docs/TODO.md`: 문서 정비 작업 목록
 - `docs/context/`: 현재 상태 및 전환 전략
-- `docs/product/`: 유스케이스, 도메인 스펙
+- `docs/product/`: 용어 표준, 유스케이스, 도메인 스펙, 도메인 해설
 - `docs/design/`: UI/UX 가이드
 - `docs/architecture/`: API 및 시스템 설계 초안
 - `docs/rules/`: 아키텍처/개발 규칙
 
 ## 2) 문서 우선순위 (Source of Truth)
 - 파일명 접두사 규칙: 숫자가 작을수록 우선순위가 높다. (예: `01_` > `02_`)
+- 전역 Source of Truth는 이 섹션의 우선순위 체계를 따른다. 용어/표기 기준은 `docs/product/01_glossary.md`를 별도 기준으로 따른다.
 - 1순위: `docs/context/01_current_understanding.md`
 - 2순위: `docs/rules/01_ddd_convention.md`
-- 3순위: `docs/product/01_use_cases.md`, `docs/product/02_core_spec.md`
+- 3순위: `docs/product/01_glossary.md`, `docs/product/02_use_cases.md`, `docs/product/03_core_spec.md`, `docs/product/04_domain_guide.md`
 - 4순위: `docs/design/01_ui_design.md`, `docs/architecture/01_api_design.md`
 - 5순위: `docs/TODO.md`
 
@@ -29,11 +30,13 @@
 ## 3) 권장 읽기 순서
 1. `docs/context/01_current_understanding.md`
 2. `docs/rules/01_ddd_convention.md`
-3. `docs/product/01_use_cases.md`
-4. `docs/product/02_core_spec.md`
-5. `docs/design/01_ui_design.md`
-6. `docs/architecture/01_api_design.md`
-7. `docs/TODO.md`
+3. `docs/product/01_glossary.md`
+4. `docs/product/02_use_cases.md`
+5. `docs/product/03_core_spec.md`
+6. `docs/product/04_domain_guide.md`
+7. `docs/design/01_ui_design.md`
+8. `docs/architecture/01_api_design.md`
+9. `docs/TODO.md`
 
 ## 4) 작성 규칙
 - `docs` 루트에는 `README.md`, `TODO.md`만 둔다.
@@ -48,4 +51,11 @@
 3. 1차 문서 탐색은 최대 2~3개 파일로 제한한다.
 4. 긴 문서는 관련 섹션만 부분 확인한다.
 5. 정보가 부족할 때만 문서를 1개씩 추가한다.
+
+## 5) 문서 동기화 검토 체크리스트
+- [ ] 용어가 `docs/product/01_glossary.md` 기준과 일치하는가? (`운동/Exercise`, `세션/Session`, `repetitionCount` 등)
+- [ ] 루트 `README.md`는 개요만 유지하고 상세 정의는 `docs` 하위 문서에만 두었는가?
+- [ ] 루트 `README.md`의 문서 진입 링크가 `docs/README.md`를 중심으로 연결되는가?
+- [ ] 문서 간 충돌 시 `## 2) 문서 우선순위` 기준으로 하위 문서를 정리했는가?
+- [ ] 변경된 문서와 연관된 최소 2개 문서를 함께 동기화했는가?
 

@@ -31,7 +31,7 @@
 - 정보가 부족할 때만 문서를 1개씩 추가로 읽는다.
 
 # Task-Based Reference Matrix
-- 신규 기능: `@docs/product/02_core_spec.md` + `@docs/product/01_use_cases.md`, 필요 시 `@docs/rules/01_ddd_convention.md`
+- 신규 기능: `@docs/product/03_core_spec.md` + `@docs/product/02_use_cases.md`, 필요 시 `@docs/product/01_glossary.md`, `@docs/rules/01_ddd_convention.md`
 - UI/UX 변경: `@docs/design/01_ui_design.md`, 필요 시 관련 product 문서
 - 버그 수정/동작 불일치: `@docs/context/01_current_understanding.md`, 필요 시 product/design 문서 추가
 - 아키텍처/규칙 확인: `@docs/rules/` 관련 파일만 선택 참조

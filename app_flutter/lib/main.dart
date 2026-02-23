@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:dopa_mine/constants/app_constants.dart';
+import 'package:dopa_mine/constants/app_strings.dart';
 import 'package:dopa_mine/providers/workout_provider.dart';
 import 'package:dopa_mine/screens/home_screen.dart';
 import 'package:dopa_mine/services/session_repository.dart';
@@ -14,11 +16,11 @@ Future<void> main() async {
     await windowManager.ensureInitialized();
 
     const WindowOptions windowOptions = WindowOptions(
-      size: Size(400, 800),
-      minimumSize: Size(400, 800),
-      maximumSize: Size(400, 800),
+      size: AppWindow.fixedSize,
+      minimumSize: AppWindow.fixedSize,
+      maximumSize: AppWindow.fixedSize,
       center: true,
-      backgroundColor: Color(0xFF121212),
+      backgroundColor: AppThemeTokens.darkBackgroundColor,
     );
 
     await windowManager.waitUntilReadyToShow(windowOptions, () async {
@@ -39,16 +41,16 @@ class DopaMineApp extends StatelessWidget {
       create: (_) =>
           WorkoutProvider(sessionRepository: MockSupabaseSessionRepository()),
       child: MaterialApp(
-        title: 'Dopa-mine',
+        title: AppStrings.appTitle,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,
           brightness: Brightness.dark,
           colorSchemeSeed: Colors.deepPurple,
-          scaffoldBackgroundColor: const Color(0xFF121212),
+          scaffoldBackgroundColor: AppThemeTokens.darkBackgroundColor,
           cardTheme: CardThemeData(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(AppLayout.cardRadius),
             ),
           ),
         ),

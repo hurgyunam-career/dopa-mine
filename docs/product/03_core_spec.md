@@ -22,6 +22,7 @@
 - `duration`: 총 수행 시간(초)
 - `repetitionCount`: 반복 횟수
 - `isCompleted`: 완료 여부
+- 용어/표기 기준은 `docs/product/01_glossary.md`를 따른다.
 
 ## 3) 비즈니스 규칙
 - 세션 완료(`isCompleted=true`)는 단 한 번만 확정 가능

@@ -1,3 +1,5 @@
+import 'package:dopa_mine/constants/app_constants.dart';
+import 'package:dopa_mine/constants/app_strings.dart';
 import 'package:dopa_mine/models/exercise.dart';
 import 'package:dopa_mine/providers/workout_provider.dart';
 import 'package:dopa_mine/screens/session_screen.dart';
@@ -12,33 +14,35 @@ class HomeScreen extends StatelessWidget {
     return Consumer<WorkoutProvider>(
       builder: (BuildContext context, WorkoutProvider provider, Widget? child) {
         return Scaffold(
-          appBar: AppBar(title: const Text('Dopa-mine')),
+          appBar: AppBar(title: const Text(AppStrings.appTitle)),
           body: SafeArea(
             child: Align(
               alignment: Alignment.topCenter,
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 600),
+                constraints: const BoxConstraints(
+                  maxWidth: AppLayout.contentMaxWidth,
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(AppLayout.pagePadding),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppLayout.mediumSpacing),
                       Text(
-                        '오늘의 작은 움직임',
+                        AppStrings.homeHeadline,
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: AppLayout.smallSpacing),
                       Text(
-                        '운동 1개를 선택하면 바로 시작할 수 있어요.',
+                        AppStrings.homeDescription,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: AppLayout.pagePadding),
                       Expanded(
                         child: ListView.separated(
                           itemCount: provider.exercises.length,
                           separatorBuilder: (_, __) =>
-                              const SizedBox(height: 8),
+                              const SizedBox(height: AppLayout.smallSpacing),
                           itemBuilder: (BuildContext context, int index) {
                             final Exercise exercise = provider.exercises[index];
                             final bool isSelected =
@@ -47,18 +51,22 @@ class HomeScreen extends StatelessWidget {
                             return Card(
                               clipBehavior: Clip.antiAlias,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
+                                borderRadius: BorderRadius.circular(
+                                  AppLayout.cardRadius,
+                                ),
                                 side: BorderSide(
                                   color: isSelected
                                       ? Theme.of(context).colorScheme.primary
                                       : Colors.transparent,
-                                  width: 1.4,
+                                  width: AppLayout.selectedBorderWidth,
                                 ),
                               ),
                               child: InkWell(
                                 onTap: () => provider.selectExercise(exercise),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(16),
+                                  padding: const EdgeInsets.all(
+                                    AppLayout.pagePadding,
+                                  ),
                                   child: Row(
                                     children: <Widget>[
                                       Expanded(
@@ -72,7 +80,9 @@ class HomeScreen extends StatelessWidget {
                                                 context,
                                               ).textTheme.titleMedium,
                                             ),
-                                            const SizedBox(height: 4),
+                                            const SizedBox(
+                                              height: AppLayout.itemDescriptionSpacing,
+                                            ),
                                             Text(
                                               exercise.description,
                                               style: Theme.of(
@@ -84,7 +94,9 @@ class HomeScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(width: 8),
+                                      const SizedBox(
+                                        width: AppLayout.smallSpacing,
+                                      ),
                                       Icon(
                                         isSelected
                                             ? Icons.check_circle
@@ -105,12 +117,14 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           bottomNavigationBar: SafeArea(
-            minimum: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+            minimum: AppLayout.bottomBarInsets,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppLayout.pagePadding,
+              ),
               child: SizedBox(
                 width: double.infinity,
-                height: 60,
+                height: AppLayout.bottomButtonHeight,
                 child: FilledButton(
                   onPressed: provider.selectedExercise == null
                       ? null
@@ -121,7 +135,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           );
                         },
-                  child: const Text('운동 시작'),
+                  child: const Text(AppStrings.startWorkout),
                 ),
               ),
             ),

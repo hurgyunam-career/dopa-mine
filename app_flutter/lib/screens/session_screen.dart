@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:dopa_mine/constants/app_constants.dart';
+import 'package:dopa_mine/constants/app_strings.dart';
 import 'package:dopa_mine/models/exercise.dart';
 import 'package:dopa_mine/models/workout_session.dart';
 import 'package:dopa_mine/providers/workout_provider.dart';
@@ -29,9 +31,9 @@ class _SessionScreenState extends State<SessionScreen> {
 
   void _startTimer() {
     _timer?.cancel();
-    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+    _timer = Timer.periodic(AppTiming.sessionTick, (_) {
       setState(() {
-        _elapsed += const Duration(seconds: 1);
+        _elapsed += AppTiming.sessionTick;
       });
     });
     setState(() {
@@ -76,15 +78,19 @@ class _SessionScreenState extends State<SessionScreen> {
         final Exercise? exercise = provider.selectedExercise;
         if (exercise == null) {
           return Scaffold(
-            appBar: AppBar(title: const Text('세션')),
+            appBar: AppBar(title: const Text(AppStrings.sessionTitle)),
             body: const SafeArea(
-              child: ContentFrame(child: Center(child: Text('선택된 운동이 없습니다.'))),
+              child: ContentFrame(
+                child: Center(child: Text(AppStrings.noSelectedExercise)),
+              ),
             ),
           );
         }
 
         return Scaffold(
-          appBar: AppBar(title: Text(exercise.name)),
+          appBar: AppBar(
+            title: Text('${exercise.name}${AppStrings.sessionSuffix}'),
+          ),
           body: SafeArea(
             child: ContentFrame(
               child: Column(
@@ -94,45 +100,71 @@ class _SessionScreenState extends State<SessionScreen> {
                     exercise.description,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppLayout.mediumSpacing),
                   Text(
-                    '목표 횟수: ${exercise.targetCount}회',
+                    '${AppStrings.targetCountPrefix}${exercise.targetCount}${AppStrings.repetitionUnit}',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppLayout.mediumSpacing),
                   Card(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 10,
+                        horizontal: AppLayout.mediumSpacing,
+                        vertical: AppLayout.mediumSpacing,
                       ),
                       child: Row(
                         children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              '현재 횟수: $_repetitionCount회',
-                              style: Theme.of(context).textTheme.titleMedium,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: AppLayout.counterHorizontalInset,
+                            ),
+                            child: SizedBox(
+                              width: AppLayout.counterButtonSize,
+                              height: AppLayout.counterButtonSize,
+                              child: IconButton.filledTonal(
+                                onPressed: _repetitionCount == 0
+                                    ? null
+                                    : () {
+                                        setState(() {
+                                          _repetitionCount -= 1;
+                                        });
+                                      },
+                                icon: const Icon(
+                                  Icons.chevron_left,
+                                  size: AppLayout.counterIconSize,
+                                ),
+                                tooltip: AppStrings.decreaseRepetition,
+                              ),
                             ),
                           ),
-                          IconButton(
-                            onPressed: _repetitionCount == 0
-                                ? null
-                                : () {
-                                    setState(() {
-                                      _repetitionCount -= 1;
-                                    });
-                                  },
-                            icon: const Icon(Icons.remove_circle_outline),
-                            tooltip: '횟수 감소',
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                '$_repetitionCount',
+                                style: Theme.of(context).textTheme.displayLarge,
+                              ),
+                            ),
                           ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _repetitionCount += 1;
-                              });
-                            },
-                            icon: const Icon(Icons.add_circle_outline),
-                            tooltip: '횟수 증가',
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              right: AppLayout.counterHorizontalInset,
+                            ),
+                            child: SizedBox(
+                              width: AppLayout.counterButtonSize,
+                              height: AppLayout.counterButtonSize,
+                              child: IconButton.filled(
+                                onPressed: () {
+                                  setState(() {
+                                    _repetitionCount += 1;
+                                  });
+                                },
+                                icon: const Icon(
+                                  Icons.chevron_right,
+                                  size: AppLayout.counterIconSize,
+                                ),
+                                tooltip: AppStrings.increaseRepetition,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -145,12 +177,14 @@ class _SessionScreenState extends State<SessionScreen> {
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: AppLayout.largeSpacing),
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
                       onPressed: _isRunning ? _pauseTimer : _startTimer,
-                      child: Text(_isRunning ? '일시정지' : '시작'),
+                      child: Text(
+                        _isRunning ? AppStrings.pause : AppStrings.start,
+                      ),
                     ),
                   ),
                 ],
@@ -158,12 +192,14 @@ class _SessionScreenState extends State<SessionScreen> {
             ),
           ),
           bottomNavigationBar: SafeArea(
-            minimum: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+            minimum: AppLayout.bottomBarInsets,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppLayout.pagePadding,
+              ),
               child: SizedBox(
                 width: double.infinity,
-                height: 60,
+                height: AppLayout.bottomButtonHeight,
                 child: FilledButton(
                   onPressed:
                       ((_elapsed == Duration.zero && _repetitionCount == 0) ||
@@ -172,11 +208,13 @@ class _SessionScreenState extends State<SessionScreen> {
                       : () => _completeSession(provider),
                   child: provider.isSaving
                       ? const SizedBox(
-                          width: 18,
-                          height: 18,
-                          child: CircularProgressIndicator(strokeWidth: 2),
+                          width: AppLayout.loadingIndicatorSize,
+                          height: AppLayout.loadingIndicatorSize,
+                          child: CircularProgressIndicator(
+                            strokeWidth: AppLayout.loadingIndicatorStrokeWidth,
+                          ),
                         )
-                      : const Text('운동 완료'),
+                      : const Text(AppStrings.completeWorkout),
                 ),
               ),
             ),
@@ -189,6 +227,6 @@ class _SessionScreenState extends State<SessionScreen> {
   String _formatDuration(Duration duration) {
     final int minutes = duration.inMinutes.remainder(60);
     final int seconds = duration.inSeconds.remainder(60);
-    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    return '${minutes.toString().padLeft(2, AppStrings.timePaddingChar)}:${seconds.toString().padLeft(2, AppStrings.timePaddingChar)}';
   }
 }

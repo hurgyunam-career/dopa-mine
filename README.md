@@ -1,6 +1,6 @@
 # dopa_mine
 
-짧은 운동 세션을 빠르게 시작하고 기록하는 Flutter 기반 프로젝트입니다.
+짧은 운동을 빠르게 시작하고 기록하는 Flutter 기반 프로젝트입니다.
 
 ## 1) 프로젝트 개요
 - 사용자는 운동을 선택하고 즉시 세션을 시작할 수 있습니다.
@@ -13,15 +13,13 @@
 - 리포트 화면: 시간/횟수/포인트 표시
 - 저장 흐름: 현재 Mock 저장소 기반 검증
 
-상세 상태는 `docs/context/01_current_understanding.md`를 기준으로 확인합니다.
+문서 상세 상태와 우선순위는 `docs/README.md`를 기준으로 확인합니다.
 
 ## 3) 문서 안내
-- 문서 인덱스: `docs/README.md`
-- 기준 문서(Source of Truth): `docs/context/01_current_understanding.md`
-- 아키텍처 규칙: `docs/rules/01_ddd_convention.md`
-- 유스케이스/스펙: `docs/product/01_use_cases.md`, `docs/product/02_core_spec.md`
-- UI 가이드: `docs/design/01_ui_design.md`
-- API 초안: `docs/architecture/01_api_design.md`
+- `docs` 폴더는 프로젝트 문서의 단일 진입점이다.
+- 문서 구조, 읽기 순서, 우선순위, 상세 참조는 `docs/README.md`에서 관리한다.
+- 루트 `README.md`는 개요만 제공하고 문서 상세는 `docs`로 위임한다.
+- 도메인 관련 상세 설명은 `docs/product` 하위 문서에서 확인한다.
 
 ## 4) 기술 스택
 - Framework: Flutter
