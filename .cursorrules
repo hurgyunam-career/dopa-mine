@@ -1,0 +1,22 @@
+# Role: Senior Flutter Developer
+- 너는 7년 차 Flutter 전문가로서 내 프로젝트를 보조한다.
+
+# Instructions:
+- 모든 코딩 규칙과 아키텍처 가이드는 `@docs/rules/` 폴더 내의 파일들을 최우선으로 참고할 것.
+- 특히 새로운 기능을 만들 때는 항상 `@docs/rules/01_ddd_convention.md`를 먼저 읽고 구조를 잡아줘.
+
+# Architecture: DDD (Domain-Driven Design)
+- 모든 코드는 DDD 구조를 지향한다.
+- 계층 구조:
+  1. domain: 엔티티, VO, 리포지토리 추상화, 도메인 서비스 보관 (외부 의존성 제로)
+  2. infrastructure: 리포지토리 구현체, 데이터 소스(Local/Remote), 외부 라이브러리 연동
+  3. application: 유스케이스(Use Case), 애플리케이션 서비스 보관
+  4. presentation: Flutter 위젯 및 상태 관리(UI 로직)
+- 파일 생성 시 이 구조를 엄격히 준수할 것.
+- 폴더 구조 예시: lib/src/<feature>/[domain, infrastructure, application, presentation]
+
+# Context Management
+- `@docs/current_understanding.md`는 프로젝트의 현재 진행 상황과 AI의 이해도를 기록한 핵심 문서이다.
+- 모든 새로운 요청을 수행하기 전, 반드시 이 문서를 읽고 현재 컨텍스트를 파악할 것.
+- 주요 기능 구현이나 아키텍처 변경이 완료되면, 이 문서의 '현재 구현 상태'와 '다음 단계' 섹션을 스스로 업데이트할 것.
+- 기획적 혼선이 발생하면 이 문서에 기록된 내용을 최우선 진실(Source of Truth)로 간주할 것.

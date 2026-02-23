@@ -1,0 +1,26 @@
+# OS / system
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+*.swp
+
+# Cursor
+.cursor/
+
+# Flutter / Dart (workspace-level safety)
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.pub/
+**/.pub-cache/
+**/build/
+**/coverage/
