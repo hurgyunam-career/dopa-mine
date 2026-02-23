@@ -1,60 +1,53 @@
 # dopa_mine
 
-풀스택 관점에서 제품을 빠르게 만들고 검증하는 개발자입니다.  
-TypeScript, React, Flutter, WebView 브릿지 통신까지 한 흐름으로 연결할 수 있고, Cursor AI 기반 바이브 코딩으로 아이디어를 실제 동작하는 기능까지 빠르게 전환합니다.
+짧은 운동 세션을 빠르게 시작하고 기록하는 Flutter 기반 프로젝트입니다.
 
-## About Me
+## 1) 프로젝트 개요
+- 사용자는 운동을 선택하고 즉시 세션을 시작할 수 있습니다.
+- 세션 시간과 반복 횟수를 수집하고 완료 시 저장합니다.
+- 리포트 화면에서 수행 결과와 포인트를 확인합니다.
 
-- TypeScript 중심 React 웹 프론트엔드 개발 경험
-- Flutter 기반 모바일/데스크톱 앱 개발 경험
-- WebView(TypeScript <-> Native) 양방향 통신 설계 및 구현 가능
-- 백엔드 API 연동, 상태 관리, 화면/도메인 구조화까지 풀스택 단위로 작업 가능
-- Cursor AI를 실무 워크플로우에 녹여 생산성과 실험 속도를 높이는 개발 방식 선호
+## 2) 현재 구현 범위
+- 홈 화면: 운동 목록 선택 및 `운동 시작` 진입
+- 세션 화면: 타이머/횟수 수집, `운동 완료` 처리
+- 리포트 화면: 시간/횟수/포인트 표시
+- 저장 흐름: 현재 Mock 저장소 기반 검증
 
-## Core Strengths
+상세 상태는 `docs/context/01_current_understanding.md`를 기준으로 확인합니다.
 
-### 1) TypeScript + React + Flutter 크로스 스택 구현
+## 3) 문서 안내
+- 문서 인덱스: `docs/README.md`
+- 기준 문서(Source of Truth): `docs/context/01_current_understanding.md`
+- 아키텍처 규칙: `docs/rules/01_ddd_convention.md`
+- 유스케이스/스펙: `docs/product/01_use_cases.md`, `docs/product/02_core_spec.md`
+- UI 가이드: `docs/design/01_ui_design.md`
+- API 초안: `docs/architecture/01_api_design.md`
 
-- 동일한 서비스 요구사항을 웹/앱 각각에 맞게 설계하고 일관된 사용자 경험으로 구현
-- 컴포넌트/위젯 단위 재사용성과 유지보수성을 고려한 구조 설계
+## 4) 기술 스택
+- Framework: Flutter
+- Language: Dart
+- State Management: Provider
+- Runtime Target: Mobile First (Desktop는 디버깅 용도)
 
-### 2) WebView 브릿지 통신
+## 5) 코드 구조 (As-Is)
+현재 `app_flutter/lib`는 다음 구조를 사용합니다.
+- `data`: 기본 운동 데이터
+- `models`: 도메인 모델
+- `providers`: 상태 관리
+- `screens`: 화면
+- `services`: 저장소 인터페이스 및 구현
+- `widgets`: 공용 컴포넌트
 
-- 웹 화면과 네이티브 기능을 자연스럽게 연결하는 브릿지 인터페이스 설계
-- 이벤트 기반 메시징, 인증/토큰 전달, 결과 콜백 처리 흐름 구현
-- 하이브리드 구조에서 발생하는 상태 동기화 이슈를 안정적으로 처리
+목표 구조(To-Be)는 DDD Feature-first이며 상세 규칙은 `docs/rules/01_ddd_convention.md`를 따릅니다.
 
-### 3) Cursor AI 기반 바이브 코딩
+## 6) 실행 방법
+```bash
+cd app_flutter
+flutter pub get
+flutter run
+```
 
-- 요구사항을 빠르게 코드로 시도하고, 짧은 피드백 루프로 반복 개선
-- 리팩터링/테스트/문서화까지 AI와 협업하여 개발 사이클 단축
-- 아이디어 단계에서 MVP까지 도달 시간을 줄이는 실행 중심 개발
-
-## Why Fullstack Candidate
-
-- 프론트엔드, 앱, 브릿지 통신, API 연동을 단절 없이 다룰 수 있어 병목 구간이 적습니다.
-- 기획 의도를 코드/구조/사용자 경험으로 번역하는 속도가 빠릅니다.
-- 단순 구현이 아니라 "작동하는 제품" 관점에서 우선순위를 잡고 끝까지 완성합니다.
-
-## Tech Stack
-
-- Frontend: TypeScript, React
-- App: Flutter, Dart
-- Communication: WebView Bridge, REST API
-- Collaboration: Git, Cursor AI, Agile Iteration
-
-## Career Direction
-
-- 정규직 포지션을 우선으로 검토하고 있습니다.
-- 대기업/스타트업 모두 열려 있으며, 산업군에도 유연합니다.
-- 역량을 신뢰하고 성장 기회를 제공하는 팀 문화를 선호합니다.
-- 역할과 책임(R&R), 협업 프로세스, 우선순위가 명확한 조직에서 최고의 퍼포먼스를 냅니다.
-
-## Current Project Focus
-
-`dopa_mine`은 Flutter 기반으로 빠르게 기능을 검증하고 확장 가능한 구조로 발전시키는 프로젝트입니다.  
-향후 React 웹 클라이언트 및 WebView 연동 시나리오까지 고려해 아키텍처를 점진적으로 확장할 예정입니다.
-
-## Contact
-
-- LinkedIn: https://www.linkedin.com/in/heokyunam/
+## 7) 다음 단계
+- Mock 저장소를 실제 백엔드 연동으로 교체
+- 센서 기반 입력 확장 및 수동/센서 UX 정리
+- DDD 구조(`lib/src/features/...`)로 점진 리팩터링

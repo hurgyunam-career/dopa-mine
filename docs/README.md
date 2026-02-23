@@ -1,0 +1,51 @@
+# Docs Index
+
+`docs` 폴더의 정보 구조, 우선순위, 읽기 순서를 정의합니다.
+
+## 핵심 원칙 (빠른 참조)
+- 비즈니스 규칙/정책은 `domain` 및 `application(usecase)` 레이어에 둡니다.
+- `presentation` 레이어는 UI 표현/입력 처리와 유스케이스 호출에 집중합니다.
+- 상세 규칙은 `docs/rules/01_ddd_convention.md`의 `레이어 책임 분리` 섹션을 우선 따릅니다.
+
+## 1) 폴더 구조
+- `docs/README.md`: 문서 인덱스와 운영 규칙
+- `docs/TODO.md`: 문서 정비 작업 목록
+- `docs/context/`: 현재 상태 및 전환 전략
+- `docs/product/`: 유스케이스, 도메인 스펙
+- `docs/design/`: UI/UX 가이드
+- `docs/architecture/`: API 및 시스템 설계 초안
+- `docs/rules/`: 아키텍처/개발 규칙
+
+## 2) 문서 우선순위 (Source of Truth)
+- 파일명 접두사 규칙: 숫자가 작을수록 우선순위가 높다. (예: `01_` > `02_`)
+- 1순위: `docs/context/01_current_understanding.md`
+- 2순위: `docs/rules/01_ddd_convention.md`
+- 3순위: `docs/product/01_use_cases.md`, `docs/product/02_core_spec.md`
+- 4순위: `docs/design/01_ui_design.md`, `docs/architecture/01_api_design.md`
+- 5순위: `docs/TODO.md`
+
+충돌 시 상위 우선순위 문서를 기준으로 하위 문서를 수정합니다.
+
+## 3) 권장 읽기 순서
+1. `docs/context/01_current_understanding.md`
+2. `docs/rules/01_ddd_convention.md`
+3. `docs/product/01_use_cases.md`
+4. `docs/product/02_core_spec.md`
+5. `docs/design/01_ui_design.md`
+6. `docs/architecture/01_api_design.md`
+7. `docs/TODO.md`
+
+## 4) 작성 규칙
+- `docs` 루트에는 `README.md`, `TODO.md`만 둔다.
+- 상세 문서는 목적별 하위 폴더에 배치한다.
+- 각 문서는 단일 H1을 사용하고, 섹션은 `##` 기준으로 정리한다.
+- 변경 시 관련 문서를 최소 2개 이상 동기화한다.
+
+## 문서 참조 원칙 (토큰 최적화)
+
+1. 시작은 항상 이 문서(README)에서 한다.
+2. 작업 유형에 맞는 문서만 선택적으로 읽는다.
+3. 1차 문서 탐색은 최대 2~3개 파일로 제한한다.
+4. 긴 문서는 관련 섹션만 부분 확인한다.
+5. 정보가 부족할 때만 문서를 1개씩 추가한다.
+

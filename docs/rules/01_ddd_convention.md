@@ -37,3 +37,9 @@
 3. Infrastructure에서 데이터를 가져와 DTO를 생성.
 4. DTO를 Domain Entity로 변환(Mapper)하여 반환.
 5. UI는 Entity를 전달받아 화면을 갱신.
+
+## 5. 레이어 책임 분리 (Layer Responsibility Rule)
+- 비즈니스 규칙과 정책은 `domain` 및 `application(usecase)` 레이어에 둔다.
+- `presentation` 레이어(UI/상태관리)는 화면 표현과 입력 처리에 집중하고, 유스케이스 호출로만 흐름을 시작한다.
+- `presentation`에서 도메인 검증, 계산, 정책 분기 같은 비즈니스 로직을 직접 구현하지 않는다.
+- 예외: 순수 표시 포맷팅, UI 상태 변환, 뷰 전용 매핑은 `presentation`에 둘 수 있다.
