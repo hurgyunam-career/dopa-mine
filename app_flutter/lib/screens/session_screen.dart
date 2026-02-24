@@ -48,24 +48,31 @@ class _SessionScreenState extends State<SessionScreen> {
     });
   }
 
-  Future<void> _completeSession(WorkoutProvider provider) async {
-    final WorkoutSession session = await provider.completeSession(
-      duration: _elapsed,
-      repetitionCount: _repetitionCount,
+  void _previewReport(Exercise exercise) {
+    final Duration duration = _elapsed == Duration.zero
+        ? const Duration(minutes: 1, seconds: 20)
+        : _elapsed;
+    final int repetitionCount = _repetitionCount == 0
+        ? exercise.targetCount
+        : _repetitionCount;
+    final int points = (repetitionCount + duration.inSeconds ~/ 30).clamp(1, 99);
+    final DateTime now = DateTime.now();
+    final WorkoutSession previewSession = WorkoutSession(
+      id: 'preview-${now.microsecondsSinceEpoch}',
+      exerciseId: exercise.id,
+      startTime: now.subtract(duration),
+      duration: duration,
+      repetitionCount: repetitionCount,
       isCompleted: true,
+      pointsAwarded: points,
     );
 
-    if (!mounted) {
-      return;
-    }
-
-    final Exercise exercise = provider.selectedExercise!;
     Navigator.of(context).pushReplacement(
       MaterialPageRoute<void>(
         builder: (_) => ReportScreen(
           exercise: exercise,
-          session: session,
-          points: session.pointsAwarded,
+          session: previewSession,
+          points: points,
         ),
       ),
     );
@@ -104,6 +111,11 @@ class _SessionScreenState extends State<SessionScreen> {
                   Text(
                     '${AppStrings.targetCountPrefix}${exercise.targetCount}${AppStrings.repetitionUnit}',
                     style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: AppLayout.smallSpacing),
+                  Text(
+                    AppStrings.prototypeNoSave,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(height: AppLayout.mediumSpacing),
                   Card(
@@ -201,20 +213,8 @@ class _SessionScreenState extends State<SessionScreen> {
                 width: double.infinity,
                 height: AppLayout.bottomButtonHeight,
                 child: FilledButton(
-                  onPressed:
-                      ((_elapsed == Duration.zero && _repetitionCount == 0) ||
-                          provider.isSaving)
-                      ? null
-                      : () => _completeSession(provider),
-                  child: provider.isSaving
-                      ? const SizedBox(
-                          width: AppLayout.loadingIndicatorSize,
-                          height: AppLayout.loadingIndicatorSize,
-                          child: CircularProgressIndicator(
-                            strokeWidth: AppLayout.loadingIndicatorStrokeWidth,
-                          ),
-                        )
-                      : const Text(AppStrings.completeWorkout),
+                  onPressed: () => _previewReport(exercise),
+                  child: const Text(AppStrings.previewReport),
                 ),
               ),
             ),

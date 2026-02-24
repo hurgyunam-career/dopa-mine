@@ -6,7 +6,7 @@ import 'package:dopa_mine/models/exercise.dart';
 import 'package:dopa_mine/models/workout_session.dart';
 import 'package:dopa_mine/widgets/content_frame.dart';
 
-class ReportScreen extends StatefulWidget {
+class ReportScreen extends StatelessWidget {
   const ReportScreen({
     super.key,
     required this.exercise,
@@ -17,26 +17,6 @@ class ReportScreen extends StatefulWidget {
   final Exercise exercise;
   final WorkoutSession session;
   final int points;
-
-  @override
-  State<ReportScreen> createState() => _ReportScreenState();
-}
-
-class _ReportScreenState extends State<ReportScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) {
-        return;
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('${widget.points}${AppStrings.pointRewardSuffix}'),
-        ),
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +31,20 @@ class _ReportScreenState extends State<ReportScreen> {
                 AppStrings.reportDone,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
+              const SizedBox(height: AppLayout.smallSpacing),
+              Text(
+                AppStrings.prototypeNotice,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
               const SizedBox(height: AppLayout.mediumSpacing),
-              Text('${AppStrings.reportExercisePrefix}${widget.exercise.name}'),
+              Text('${AppStrings.reportExercisePrefix}${exercise.name}'),
               Text(
-                '${AppStrings.reportDurationPrefix}${_formatDuration(widget.session.duration)}',
+                '${AppStrings.reportDurationPrefix}${_formatDuration(session.duration)}',
               ),
               Text(
-                '${AppStrings.reportCountPrefix}${widget.session.repetitionCount}${AppStrings.repetitionUnit}',
+                '${AppStrings.reportCountPrefix}${session.repetitionCount}${AppStrings.repetitionUnit}',
               ),
-              Text('${AppStrings.reportPointPrefix}${widget.points}'),
+              Text('${AppStrings.reportPointPrefix}$points'),
               const Spacer(),
             ],
           ),

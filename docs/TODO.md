@@ -19,7 +19,7 @@
   - [x] 문서 링크 정책 확정 (루트는 `docs/README.md` 중심으로 안내, 상세 정의는 `docs`에만 작성)
   - [x] 산출물 반영 완료 (용어 매핑 표 1개 + 루트 `README.md` 섹션 2/3/5 동기화 + 검토 체크리스트)
 - [x] 포인트 계산식 상세 규칙을 `docs/product/03_core_spec.md`에 수식 수준으로 확정
-- [ ] 세션 복구 정책(백그라운드/앱 종료)을 `docs/product/02_use_cases.md`와 구현 기준으로 연결
+- [x] 세션 복구 정책(백그라운드/앱 종료)을 `docs/product/02_use_cases.md`와 구현 기준으로 연결
 - [ ] `docs/architecture/01_api_design.md`에 인증/에러 응답 바디 표준 확정
 - [ ] Supabase 저장 작업 정의/구현
   - [ ] `docs/architecture/01_api_design.md`에 저장 대상 엔티티/필드 매핑 표 추가 (`WorkoutSession`, `SessionExercise`, `RepetitionLog` 기준)

@@ -1,8 +1,8 @@
 import 'package:dopa_mine/constants/app_constants.dart';
 import 'package:dopa_mine/constants/app_strings.dart';
 import 'package:dopa_mine/models/exercise.dart';
-import 'package:dopa_mine/models/workout_session.dart';
 import 'package:dopa_mine/providers/workout_provider.dart';
+import 'package:dopa_mine/screens/history_screen.dart';
 import 'package:dopa_mine/screens/session_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,18 +14,23 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<WorkoutProvider>(
       builder: (BuildContext context, WorkoutProvider provider, Widget? child) {
-        final Map<String, Exercise> exerciseById = <String, Exercise>{
-          for (final Exercise exercise in provider.exercises) exercise.id: exercise,
-        };
-        final WorkoutSession? latestSession = provider.sessionHistory.isEmpty
-            ? null
-            : provider.sessionHistory.first;
-        final String? latestExerciseName = latestSession == null
-            ? null
-            : exerciseById[latestSession.exerciseId]?.name;
-
         return Scaffold(
-          appBar: AppBar(title: const Text(AppStrings.appTitle)),
+          appBar: AppBar(
+            title: const Text(AppStrings.appTitle),
+            actions: <Widget>[
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const HistoryScreen(),
+                    ),
+                  );
+                },
+                tooltip: AppStrings.viewHistory,
+                icon: const Icon(Icons.history),
+              ),
+            ],
+          ),
           body: SafeArea(
             child: Align(
               alignment: Alignment.topCenter,
@@ -48,36 +53,21 @@ class HomeScreen extends StatelessWidget {
                         AppStrings.homeDescription,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
-                      const SizedBox(height: AppLayout.mediumSpacing),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppLayout.pagePadding),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                AppStrings.historyHeadline,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                              const SizedBox(height: AppLayout.smallSpacing),
-                              if (provider.isHistoryLoading)
-                                const Text(AppStrings.historyLoading)
-                              else if (provider.sessionHistory.isEmpty)
-                                const Text(AppStrings.historyEmpty)
-                              else ...<Widget>[
-                                Text(
-                                  '${AppStrings.historyTotalSessionsPrefix}${provider.sessionHistory.length}${AppStrings.historyTotalSessionsSuffix}',
-                                ),
-                                Text(
-                                  '${AppStrings.historyTotalPointsPrefix}${provider.totalPoints}',
-                                ),
-                                if (latestExerciseName != null)
-                                  Text(
-                                    '${AppStrings.historyRecentItemPrefix}$latestExerciseName (${latestSession!.repetitionCount}${AppStrings.repetitionUnit})',
-                                  ),
-                              ],
-                            ],
+                      const SizedBox(height: AppLayout.smallSpacing),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(AppLayout.smallSpacing),
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.secondaryContainer.withValues(alpha: 0.4),
+                          borderRadius: BorderRadius.circular(
+                            AppLayout.cardRadius / 2,
                           ),
+                        ),
+                        child: Text(
+                          '${AppStrings.prototypeBadge} · ${AppStrings.prototypeNotice}',
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
                       const SizedBox(height: AppLayout.pagePadding),
