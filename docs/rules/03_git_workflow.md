@@ -41,5 +41,5 @@
 
 ## 7. 문서 동기화
 - 기능/정책 변경 시 관련 문서를 함께 갱신한다.
-- 최소 동기화 대상: `docs/context/01_current_understanding.md` + 관련 규칙/기획 문서 1개 이상
+- 최소 동기화 대상: `docs/context/01_project_state.md` + 관련 규칙/기획 문서 1개 이상
 - 문서와 코드가 충돌하면 PR에서 의도와 기준 문서를 명시한다.

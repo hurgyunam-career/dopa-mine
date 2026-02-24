@@ -1,4 +1,4 @@
-# Current Understanding
+# Project State
 
 프로젝트의 현재 구현 상태와 아키텍처 전환 방향을 기록하는 기준 문서입니다.
 
@@ -30,3 +30,9 @@
 - `MockSupabaseSessionRepository`를 실제 Supabase 연동 구현으로 교체
 - 횟수 수집을 센서 입력까지 확장하고 수동/센서 모드 UX 정리
 - `lib/src/features/...` 구조로 점진 리팩터링 (entities/repositories/use_cases/presentation 분리)
+
+## 변경 이력
+| 날짜 | 변경 요약 | 작성자 |
+| --- | --- | --- |
+| 2026-02-24 | `01_current_understanding.md`에서 `01_project_state.md`로 파일명 변경 | @owner |
+| 2026-02-24 | 변경 이력 정책 섹션 도입 | @owner |

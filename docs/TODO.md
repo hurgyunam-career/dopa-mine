@@ -1,11 +1,11 @@
 # Docs TODO
 
 문서 정합성과 유지보수성을 높이기 위한 작업 목록입니다.
-마지막 업데이트: 2026-02-23
+마지막 업데이트: 2026-02-24
 
 ## P0 (즉시 반영)
 - [x] `docs/README.md` 생성 (문서 인덱스/우선순위/읽기 순서 정의)
-- [x] `docs/context/01_current_understanding.md`에 As-Is/To-Be/전환 정책 구조 통일
+- [x] `docs/context/01_project_state.md`에 As-Is/To-Be/전환 정책 구조 통일
 - [x] `docs/product/02_use_cases.md`에 실패/예외/경계 시나리오 반영
 - [x] `docs/product/03_core_spec.md`에 `Session.repetitionCount` 및 완료 규칙 명시
 - [x] `docs/design/01_ui_design.md`에 구현 매핑 체크리스트 추가
@@ -35,8 +35,11 @@
   - [ ] QA 체크리스트 작성 (정상 저장, 중복 저장 방지, 오프라인 복구, 재로그인 후 동기화)
 - [ ] 소셜 로그인 작업 정의/구현
   - [ ] 지원 로그인 제공자 범위 확정 (Google, Apple, Kakao 중 1차 릴리즈 대상)
+  - [ ] 인증 아키텍처 확정 (Supabase Auth 단독, Next.js 웹뷰 선행 없음)
   - [ ] `docs/architecture/01_api_design.md`에 인증 플로우 시퀀스 추가 (앱 시작/로그인/토큰 갱신/로그아웃)
   - [ ] Supabase Auth 연동 방식 확정 (OAuth redirect, deep link callback 처리)
+  - [ ] Supabase `Authentication > URL Configuration` 값 확정 (`Site URL` 임시값, `Redirect URLs` 실제 앱 콜백 등록)
+  - [ ] 소셜 로그인 콜백 딥링크 규격 확정 (`<scheme>://<host>`), 환경별(dev/prod) 네이밍 규칙 정의
   - [ ] Flutter 라우팅 기준 로그인 게이트 정의 (미인증 진입 차단 및 복귀 경로)
   - [ ] 세션/토큰 저장 정책 확정 (secure storage 사용, 만료 시 refresh 우선)
   - [ ] 사용자 프로필 최소 스키마 확정 (`id`, `email`, `provider`, `created_at`)
@@ -44,6 +47,11 @@
   - [ ] 로그아웃 처리 정책 확정 (로컬 캐시 제거 범위, 진행 중 세션 보존 여부)
   - [ ] 인증 실패 에러 UX 정의 (취소/네트워크 실패/계정 충돌)
   - [ ] iOS/Android 플랫폼별 설정 TODO 분리 (`URL scheme`, `intent filter`, `signing` 확인)
+  - [ ] Android `AndroidManifest.xml`에 커스텀 스킴 `intent-filter` 적용 및 검증
+  - [ ] iOS `Info.plist`에 URL Types 설정 적용 및 검증
+  - [ ] Supabase OAuth `redirectTo`와 대시보드 `Redirect URLs` 일치 검증 체크리스트 추가
+  - [ ] 딥링크 사전 점검 절차 문서화 (Android `adb`, iOS `simctl`로 앱 호출 테스트)
+  - [ ] 플레이스토어 등록 전 단계에서도 딥링크/소셜 로그인 개발·테스트 가능 가이드 명시
   - [ ] QA 체크리스트 작성 (신규 로그인, 재로그인, 토큰 만료 복구, 로그아웃 이후 접근 차단)
 - [ ] Google Play 스토어 출시 절차 정의/실행
   - [ ] Google Play Console 앱 생성 및 패키지명/앱명 확정
@@ -61,9 +69,9 @@
 
 ## P2 (지속 개선)
 - [x] 문서 공통 Glossary 추가 (`docs/product/01_glossary.md`)
-- [ ] 각 문서에 변경 이력(날짜/요약) 정책 도입
-- [ ] 릴리즈 단위로 문서 검토 체크리스트 운영
+- [x] 각 문서에 변경 이력(날짜/요약) 정책 도입
+- [x] 릴리즈 단위로 문서 검토 체크리스트 운영
 
 ## 메모
-- 기준 문서는 `docs/context/01_current_understanding.md`
+- 기준 문서는 `docs/context/01_project_state.md`
 - 아키텍처 규칙은 `docs/rules/01_ddd_convention.md`를 우선 적용
