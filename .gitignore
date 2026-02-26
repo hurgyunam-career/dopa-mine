@@ -14,7 +14,9 @@ Thumbs.db
 *.swp
 
 # Cursor
-.cursor/
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/*.mdc
 
 # Supabase CLI local metadata
 supabase/.temp/

@@ -3,6 +3,12 @@
 문서 정합성과 유지보수성을 높이기 위한 작업 목록입니다.
 마지막 업데이트: 2026-02-26
 
+## Quick Inbox (신규 이슈 캡처)
+- [ ] context: 커밋 범위 밖으로 나온 신규 이슈를 빠르게 기록하기 위한 임시 수집함
+  - task: 신규 이슈를 `context/task/priority/next_action` 4필드로 먼저 남긴다
+  - priority: P2
+  - next_action: 항목 추가 후 가장 가까운 작업 사이클에서 P1/P2/P3 본 목록으로 이동한다
+
 ## P1 (다음 정비)
 - [ ] Supabase 저장 작업 정의/구현 (진행중, 8/12 완료) (`docs/todo/01_supabase_persistence.md`)
 - [ ] 소셜 로그인 작업 정의/구현 (대기, 0/19 완료) (`docs/todo/02_social_login.md`)
@@ -19,5 +25,6 @@
 
 ## 메모
 - 기준 문서는 `docs/context/01_project_state.md`
-- 아키텍처 규칙은 `docs/rules/01_ddd_convention.md`를 우선 적용
+- 아키텍처 규칙은 `.cursor/rules/architecture-ddd.mdc`를 우선 적용
 - 진행률 동기화: `make todo-sync`
+- 신규 이슈 기록 규칙: `context/task/priority/next_action` 4필드를 사용

@@ -1,0 +1,26 @@
+---
+description: DDD feature-first architecture and layer boundaries
+alwaysApply: true
+---
+
+# DDD Architecture Rule
+
+## Directory Structure
+- 기능은 `lib/src/features/{feature_name}` 기준으로 구성한다.
+- 기본 계층은 `domain`, `application`, `infrastructure`, `presentation`을 사용한다.
+
+## Dependency Direction
+- 의존성 방향은 `presentation -> application -> domain <- infrastructure`를 지킨다.
+- `domain`은 외부 계층에 의존하지 않는 Pure Dart를 유지한다.
+
+## Layer Responsibility
+- 비즈니스 규칙/정책은 `domain` 또는 `application(usecase)`에 둔다.
+- `presentation`은 화면 표현/입력 처리와 유스케이스 호출에 집중한다.
+- `presentation`에서 도메인 검증, 계산, 정책 분기를 직접 구현하지 않는다.
+- 예외로 UI 표시 포맷팅, 상태 변환, 뷰 전용 매핑은 허용한다.
+
+## Naming Conventions
+- Entity: `{Name}Entity`
+- Repository interface: `I{Name}Repository`
+- Repository implementation: `{Name}RepositoryImpl`
+- DTO/Model: `{Name}Dto` 또는 `{Name}Model`

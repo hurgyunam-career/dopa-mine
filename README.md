@@ -37,7 +37,7 @@
 - `services`: 저장소 인터페이스 및 구현
 - `widgets`: 공용 컴포넌트
 
-목표 구조(To-Be)는 DDD Feature-first이며 상세 규칙은 `docs/rules/01_ddd_convention.md`를 따릅니다.
+목표 구조(To-Be)는 DDD Feature-first이며 상세 규칙은 `.cursor/rules/architecture-ddd.mdc`를 따릅니다.
 
 ## 6) 실행 방법
 ```bash
