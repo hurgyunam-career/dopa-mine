@@ -13,7 +13,7 @@
 - `docs/context/`: 프로젝트 상태/완료 기준 (`01_project_state.md`, `02_done_definition.md`)
 - `docs/product/`: 용어 표준, 유스케이스, 도메인 스펙, 도메인 해설
 - `docs/design/`: UI/UX 가이드
-- `docs/architecture/`: API 및 시스템 설계 초안, 이동 루트 레지스트리 (`02_navigation_routes.md`)
+- `docs/architecture/`: API 및 시스템 설계 초안, 환경 변수 정책, 이동 루트 레지스트리 (`02_env_policy.md`, `03_navigation_routes.md`)
 - `docs/rules/`: 아키텍처/개발 규칙
 - `docs/issues/`: 채팅별 이슈 로그와 통합 인덱스 (`README.md`, `ISSUES.md`, `CHAT_*.md`)
 
@@ -41,10 +41,11 @@
 7. `docs/product/04_domain_guide.md`
 8. `docs/design/01_ui_design.md`
 9. `docs/architecture/01_api_design.md`
-10. `docs/architecture/02_navigation_routes.md`
-11. `docs/issues/README.md`
-12. `docs/issues/ISSUES.md`
-13. `docs/TODO.md`
+10. `docs/architecture/02_env_policy.md`
+11. `docs/architecture/03_navigation_routes.md`
+12. `docs/issues/README.md`
+13. `docs/issues/ISSUES.md`
+14. `docs/TODO.md`
 
 ## 4) 작성 규칙
 - `docs` 루트에는 `README.md`, `TODO.md`만 둔다.
@@ -53,7 +54,7 @@
 - 변경 시 관련 문서를 최소 2개 이상 동기화한다.
 - AI 기반 개발 중 누락 방지를 위해, 작업 착수 전/완료 후 `docs`에 요구사항·결정사항·TODO 반영 여부를 확인한다.
 - 코드 변경이 발생한 작업은 문서 갱신 확인 없이 완료로 간주하지 않는다.
-- 화면 이동 코드가 추가/삭제/변경되면 `docs/architecture/02_navigation_routes.md`를 같은 작업에서 반드시 동기화한다.
+- 화면 이동 코드가 추가/삭제/변경되면 `docs/architecture/03_navigation_routes.md`를 같은 작업에서 반드시 동기화한다.
 - 커밋 가드: `tools/check_navigation_routes_sync.dart`로 라우트 변경 시 문서 동기화 여부를 자동 검증한다.
 - 공통 실행: `Makefile`의 `nav-check`, `nav-hook-install` 타깃을 사용해 OS별 명령 차이를 줄인다.
 

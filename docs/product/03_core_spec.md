@@ -30,6 +30,13 @@
 - 완료 시점에만 포인트 계산/지급 수행
 - 동일 세션의 중복 완료 요청은 멱등 처리
 
+### 3.1 저장 트리거/정합성 규칙 (Supabase)
+- 기본 트리거: 사용자가 세트(반복 입력 단위)를 완료할 때마다 즉시 저장한다.
+- 저장 단위: 세트 완료 시 `repetition_logs`를 append하고, 같은 트랜잭션 흐름에서 `session_exercises.actual_reps`와 `workout_sessions.repetition_count`를 갱신한다.
+- 멱등성: 동일 세트 재전송은 `session_exercise_id + rep_index` 유니크 제약으로 중복 저장을 방지한다.
+- 실패 처리: 네트워크/권한 오류로 즉시 저장에 실패하면 로컬 큐에 적재하고 재시도하며, 재시도 성공 시 원본 순서대로 반영한다.
+- 세션 완료 시점: `workout_sessions.is_completed`, `end_time`, `duration_seconds`, `points_awarded`를 최종 1회 확정 저장한다.
+
 ## 4) 포인트 규칙
 - 기본 원칙: 운동별 `metPoints`와 수행량(`duration`, `repetitionCount`)을 조합해 계산
 - 최소 보상: 완료 세션은 0보다 큰 포인트 지급을 보장
@@ -63,3 +70,4 @@
 | 날짜 | 변경 요약 | 작성자 |
 | --- | --- | --- |
 | 2026-02-24 | 변경 이력 정책 섹션 도입 | @owner |
+| 2026-02-26 | 저장 트리거 시점(세트 완료) 및 멱등/실패 처리 규칙 확정 | @owner |

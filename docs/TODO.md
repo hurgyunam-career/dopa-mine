@@ -24,13 +24,14 @@
 - [x] 프로젝트 완료 기준 문서 신설 (`docs/context/02_done_definition.md`) 및 `docs/README.md` 읽기 순서/구조 동기화
 - [x] 버튼/입력 기반 QA 체크리스트 템플릿 신설 (`docs/release/QA_CHECKLIST_TEMPLATE.md`) 및 릴리즈 체크리스트 연동
 - [ ] Supabase 저장 작업 정의/구현
-  - [ ] `docs/architecture/01_api_design.md`에 저장 대상 엔티티/필드 매핑 표 추가 (`WorkoutSession`, `SessionExercise`, `RepetitionLog` 기준)
-  - [ ] `docs/product/03_core_spec.md`에 저장 트리거 시점 확정 (세트 완료/세션 완료/앱 종료 직전)
-  - [ ] Supabase 프로젝트 환경 변수 규격 확정 (`SUPABASE_URL`, `SUPABASE_ANON_KEY`) 및 로컬/배포 분리 정책 문서화
+  - [x] `docs/architecture/01_api_design.md`에 저장 대상 엔티티/필드 매핑 표 추가 (`WorkoutSession`, `SessionExercise`, `RepetitionLog` 기준)
+  - [x] `docs/product/03_core_spec.md`에 저장 트리거 시점 확정 (세트 완료 즉시 저장 + 실패 시 로컬 큐 재시도 + 세션 완료 시 최종 확정)
+  - [x] Supabase CLI 등록하기 (프로젝트 링크/인증 확인 포함)
+  - [x] Supabase 프로젝트 환경 변수 규격 확정 (`SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`/`SUPABASE_ANON_KEY`) 및 로컬/배포 분리 정책 문서화 (`docs/architecture/02_env_policy.md`)
   - [ ] Flutter 저장 계층 설계안 문서화 (`repository` 추상화, `infrastructure` 구현, DTO 변환 책임)
-  - [ ] Supabase 테이블/인덱스 초안 작성 (`workout_sessions`, `session_exercises`, `repetition_logs`)
-  - [ ] RLS 정책 초안 작성 (사용자 본인 데이터만 조회/쓰기 가능)
-  - [ ] 세션 저장 API 호출 흐름 정의 (생성/업데이트/재시도/멱등성 키 처리)
+  - [x] Supabase 테이블/인덱스 초안 작성 (`workout_sessions`, `session_exercises`, `repetition_logs`)
+  - [x] RLS 정책 초안 작성 (사용자 본인 데이터만 조회/쓰기 가능, `supabase/migrations/20260226063420_create_workout_tables.sql` 참조)
+  - [x] 세션 저장 API 호출 흐름 정의 (생성/업데이트/재시도/멱등성 키 처리)
   - [ ] 오프라인 시 로컬 큐 적재 후 재동기화 전략 문서화 (앱 재시작 포함)
   - [ ] 저장 실패 에러 분류표 작성 (네트워크/인증 만료/권한/스키마 불일치)
   - [ ] `workout_provider` 기준 저장 상태 모델 정의 (`idle/saving/saved/error`, 사용자 메시지 정책)

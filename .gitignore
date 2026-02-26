@@ -16,6 +16,9 @@ Thumbs.db
 # Cursor
 .cursor/
 
+# Supabase CLI local metadata
+supabase/.temp/
+
 # Flutter / Dart (workspace-level safety)
 **/.dart_tool/
 **/.flutter-plugins

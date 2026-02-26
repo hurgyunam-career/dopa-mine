@@ -10,6 +10,8 @@
 | 속성 | `repetitionCount` | 횟수 | 운동 반복 수행 횟수 |
 | 상태 | `isCompleted` / `Completed` | 완료됨 | 세션이 완료되어 저장 가능한 확정 상태 |
 | 행위 | `save` | 저장 | 세션 데이터를 저장소에 기록하는 행위 |
+| 규칙 | `Idempotency` / `멱등성` | 중복 요청 안전 처리 | 같은 저장 요청이 여러 번 도착해도 서버 상태가 1회 처리와 동일하게 유지되는 성질 |
+| 보안 | `RLS` / `Row Level Security` | 행 단위 접근 제어 | 사용자별 데이터 행 접근 권한을 DB 정책으로 제한하는 방식(예: 본인 `user_id` 행만 조회/쓰기 허용) |
 
 ## 2) 표기 원칙
 - 사용자 노출 문구에서는 `세션`을 기본 사용한다.
@@ -18,6 +20,8 @@
 - 하나의 문서 안에서 동일 개념을 다른 용어로 혼용하지 않는다.
 - 저장/API 문맥에서는 `Session`의 저장 엔티티 표기를 `WorkoutSession`, `SessionExercise`, `RepetitionLog`로 사용한다.
 - 저장 엔티티의 상세 매핑과 관계 설명은 `docs/architecture/01_api_design.md`를 기준으로 한다.
+- 본 프로젝트의 세트 저장 멱등성 키는 `session_exercise_id + rep_index` 조합을 기본으로 사용한다.
+- 본 프로젝트의 데이터 접근 제어는 Supabase `RLS` 정책을 기본으로 하며, 클라이언트 키 보안은 RLS 정책 준수를 전제로 한다.
 
 ## 3) 적용 범위
 - 대상 문서: `docs/product/*`, `docs/context/*`, `docs/design/*`, 루트 `README.md`
@@ -26,5 +30,7 @@
 ## 변경 이력
 | 날짜 | 변경 요약 | 작성자 |
 | --- | --- | --- |
+| 2026-02-26 | `RLS(Row Level Security)` 용어 정의 및 프로젝트 접근 제어 원칙 추가 | @cursor-agent |
+| 2026-02-26 | `Idempotency(멱등성)` 용어 정의 및 프로젝트 기본 멱등 키 규칙 추가 | @cursor-agent |
 | 2026-02-26 | `Session` 용어의 저장/API 명명 대응(`WorkoutSession` 등) 및 참조 문서 규칙 추가 | @cursor-agent |
 | 2026-02-24 | 변경 이력 정책 섹션 도입 | @owner |
