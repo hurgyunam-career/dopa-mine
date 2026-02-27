@@ -21,23 +21,55 @@
 - **용도**: Supabase Auth 연동 시 클라이언트/백엔드에서 참조하는 최소 식별·표시 정보
 - **비고**: 확장 필드는 후속 요구에 따라 추가
 
+## 소셜 로그인 콜백 딥링크 규격 (초안)
+
+OAuth 완료 후 Supabase가 리다이렉트하는 URL과 앱이 수신하는 커스텀 스킴 딥링크를 동일하게 맞춘다.
+
+| 항목 | 값 (초안) | 비고 |
+| --- | --- | --- |
+| **scheme** | `com.heokyunam.dopamine` | 역도메인 스킴(실제 도메인). 고유성·충돌 방지. 루트 `README.md` §앱 식별 참조 |
+| **host** | `auth` | 인증 콜백 전용 호스트 |
+| **path** | `/callback` | OAuth callback 경로로 통일 |
+| **전체 URL** | `com.heokyunam.dopamine://auth/callback` | Supabase Redirect URLs 및 `signInWithOAuth(redirectTo)`에 등록할 값 |
+
+**환경별 네이밍 (초안)**
+
+- **안 A**: dev/prod 동일 URL  
+  - URL: `com.heokyunam.dopamine://auth/callback`  
+  - 환경 구분: Supabase 프로젝트(또는 env)로만 구분. 앱 빌드별로 다른 Supabase 설정 사용.
+- **안 B**: 스킴으로 환경 구분  
+  - dev: `com.heokyunam.dopamine.dev://auth/callback`  
+  - prod: `com.heokyunam.dopamine://auth/callback`  
+  - 동일 기기에서 dev 빌드와 prod 빌드를 함께 쓸 때 콜백 충돌 방지.
+
+**확정 전 검토**
+
+- [x] scheme: 역도메인 `com.heokyunam.dopamine` 확정
+- [ ] 환경별 안 A vs 안 B 선택 (또는 staging용 스킴 추가 여부)
+- [ ] 확정 후 본 섹션을 "소셜 로그인 콜백 딥링크 규격 (확정)"으로 변경, `docs/context/05_confirmed_decisions.md`에 요약 추가, 상세 TODO 1) 항목 체크
+
 ## 상세 TODO
+
+**진행 순서(의존성)**  
+Supabase `Redirect URLs`에 등록할 값이 곧 앱이 받을 콜백 URL(딥링크)이므로, **딥링크 규격 확정 → 플랫폼 설정(Android intent-filter) → Flutter 콜백 수신 구현 → Supabase URL Configuration 확정** 순으로 진행한다.
+
 - [x] 지원할 소셜 로그인 플랫폼 확정 (1차 릴리즈: Google 전용)
 - [x] 인증 서비스 및 로그인 구현 방식 확정 (Supabase Auth만 사용, Next.js 웹뷰로 OAuth 처리하는 방식은 사용하지 않음)
 - [x] `docs/architecture/02_auth_flow.md`에 인증 플로우 시퀀스 추가 (앱 시작/로그인/토큰 갱신/로그아웃)
 - [x] Supabase Auth 연동 방식 확정 (OAuth redirect + 앱 커스텀 스킴 딥링크 콜백 수신, `02_auth_flow.md` 2) 로그인 절 반영)
-- [ ] Supabase `Authentication > URL Configuration` 값 확정 (`Site URL` 임시값, `Redirect URLs` 실제 앱 콜백 등록)
-- [ ] 소셜 로그인 콜백 딥링크 규격 확정 (`<scheme>://<host>`), 환경별(dev/prod) 네이밍 규칙 정의
-- [ ] Flutter 라우팅 기준 로그인 게이트 정의 (미인증 진입 차단 및 복귀 경로)
 - [x] 세션/토큰 저장 정책 확정 (secure storage 사용, 만료 시 refresh 우선, 상단 §세션/토큰 저장 정책 반영)
 - [x] 사용자 프로필 최소 스키마 확정 (`id`, `email`, `provider`, `created_at`, 상단 §사용자 프로필 최소 스키마 반영)
+- [ ] **1)** 소셜 로그인 콜백 딥링크 규격 확정 (`<scheme>://<host>` 또는 path 포함), 환경별(dev/prod) 네이밍 규칙 정의
+- [ ] **2)** 플랫폼별 설정 TODO 분리 (1차 범위: Android `intent filter` 중심)
+- [ ] **3)** Android `AndroidManifest.xml`에 커스텀 스킴 `intent-filter` 적용 및 검증
+- [ ] **4)** 딥링크 사전 점검 절차 문서화 (Android `adb` 기준 앱 호출 테스트)
+- [ ] **5)** Flutter에서 OAuth 콜백 딥링크 수신 및 code 교환·세션 저장 구현 (예: `app_links` + Supabase `exchangeCodeForSession`)
+- [ ] **6)** Supabase `Authentication > URL Configuration` 값 확정 (`Site URL` 임시값, `Redirect URLs`에 확정한 딥링크 URL 등록)
+- [ ] **7)** Supabase OAuth `redirectTo`와 대시보드 `Redirect URLs` 일치 검증 체크리스트 추가
+- [ ] Flutter 라우팅 기준 로그인 게이트 정의 (미인증 진입 차단 및 복귀 경로)
 - [ ] 최초 로그인 시 사용자 레코드 upsert 규칙 문서화
 - [ ] 로그아웃 처리 정책 확정 (로컬 캐시 제거 범위, 진행 중 세션 보존 여부)
 - [ ] 인증 실패 에러 UX 정의 (취소/네트워크 실패/계정 충돌)
-- [ ] 플랫폼별 설정 TODO 분리 (1차 범위: Android `intent filter` 중심)
-- [ ] Android `AndroidManifest.xml`에 커스텀 스킴 `intent-filter` 적용 및 검증
-- [ ] Supabase OAuth `redirectTo`와 대시보드 `Redirect URLs` 일치 검증 체크리스트 추가
-- [ ] 딥링크 사전 점검 절차 문서화 (Android `adb` 기준 앱 호출 테스트)
 - [ ] 플레이스토어 등록 전 단계에서도 Android 딥링크/소셜 로그인 개발·테스트 가능 가이드 명시
 - [ ] QA 체크리스트 작성 (Google 신규 로그인, 재로그인, 토큰 만료 복구, 로그아웃 이후 접근 차단)
 - [ ] iOS/Apple 로그인 관련 후속 이슈를 `docs/todo/07_ios_release_apple_login.md`로 이관
@@ -63,6 +95,9 @@
 ## 변경 이력
 | 날짜 | 변경 요약 | 작성자 |
 | --- | --- | --- |
+| 2026-02-27 | 딥링크 스킴 역도메인 `com.heokyunam.dopamine` 확정 반영, README §앱 식별 참조 추가, 확정 전 검토에 05_confirmed_decisions 연계 명시 | @cursor-agent |
+| 2026-02-27 | 소셜 로그인 콜백 딥링크 규격 초안 섹션 추가 (scheme/host/path, 환경별 네이밍 안 A·B, 확정 전 검토 항목) | @cursor-agent |
+| 2026-02-27 | 상세 TODO 진행 순서(의존성) 안내 추가, 딥링크→Supabase URL 순서로 항목 재정렬 및 1~7 단계 번호 부여, Flutter 콜백 수신 구현 항목 추가 | @cursor-agent |
 | 2026-02-27 | 세션/토큰 저장 정책·사용자 프로필 최소 스키마 확정 섹션 추가 및 TODO 완료 처리 | @cursor-agent |
 | 2026-02-27 | 인증 플로우 시퀀스 작업 완료 (`docs/architecture/02_auth_flow.md` 분리) | @cursor-agent |
 | 2026-02-27 | 지원 로그인 제공자 범위 확정 섹션 추가 (1차: Google 전용), 관련 문서 동기화 | @cursor-agent |

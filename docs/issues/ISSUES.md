@@ -11,3 +11,4 @@
 | --- | --- | --- | --- | --- |
 | 2026-02-26 | `docs/issues/CHAT_2026-02-26_10-10_session-mapping-and-terms.md` | 세션 저장 엔티티 매핑 및 용어 일관성 정리 | closed | 출처 분리 기준 반영 |
 | 2026-02-26 | `docs/issues/CHAT_2026-02-26_15-18_persistence-doc-clarification.md` | 저장 계층 문서 난이도 조정 및 멱등성/예외 규칙 명확화 | closed | MVP/P3 단계 분리 반영 |
+| 2026-02-27 | `docs/issues/CHAT_2026-02-27_16-00_social-login-deeplink-and-confirmed-decisions-sync.md` | 소셜 로그인 딥링크 규격·역도메인 확정·05 동기화 mdc | closed | README §앱 식별, confirmed-decisions-sync.mdc |

@@ -22,13 +22,18 @@
 - 이 프로젝트는 AI 기반 바이브 코딩으로 빠르게 구현하되, 자동 진행 과정에서 놓칠 수 있는 요구사항과 결정사항을 보완하기 위해 상세 작업 내용을 `docs` 폴더에 지속적으로 문서화한다.
 - 도메인 관련 상세 설명은 `docs/product` 하위 문서에서 확인한다.
 
-## 4) 기술 스택
+## 4) 앱 식별 (딥링크·OAuth 콜백)
+- **딥링크 스킴(역도메인)**: `com.heokyunam.dopamine`
+- OAuth 콜백 URL 예: `com.heokyunam.dopamine://auth/callback`  
+- 상세 규격·환경별 네이밍: `docs/todo/02_social_login.md` §소셜 로그인 콜백 딥링크 규격
+
+## 5) 기술 스택
 - Framework: Flutter
 - Language: Dart
 - State Management: Provider
 - Runtime Target: Mobile First (Desktop는 디버깅 용도)
 
-## 5) 코드 구조 (As-Is)
+## 6) 코드 구조 (As-Is)
 현재 `app_flutter/lib`는 다음 구조를 사용합니다.
 - `data`: 기본 운동 데이터
 - `models`: 도메인 모델
@@ -39,14 +44,14 @@
 
 목표 구조(To-Be)는 DDD Feature-first이며 상세 규칙은 `.cursor/rules/architecture-ddd.mdc`를 따릅니다.
 
-## 6) 실행 방법
+## 7) 실행 방법
 ```bash
 cd app_flutter
 flutter pub get
 flutter run
 ```
 
-## 7) 다음 단계
+## 8) 다음 단계
 - Mock 저장소를 실제 백엔드 연동으로 교체
 - 센서 기반 입력 확장 및 수동/센서 UX 정리
 - DDD 구조(`lib/src/features/...`)로 점진 리팩터링
