@@ -6,9 +6,14 @@
 - 우선순위: P1
 - 목표: Supabase Auth 기반 소셜 로그인(1차: Google) 구현 준비
 
+## 지원 소셜 로그인 플랫폼 (확정)
+- **1차 릴리즈**: Google 전용
+- **제외(후속)**: Apple, Kakao 등 → `docs/todo/07_ios_release_apple_login.md`에서 P4로 관리
+- **근거**: Android 출시 + Google 로그인 우선 완료 후 iOS/Apple 로그인 진행
+
 ## 상세 TODO
-- [ ] 지원 로그인 제공자 범위 확정 (1차 릴리즈: Google 고정)
-- [ ] 인증 아키텍처 확정 (Supabase Auth 단독, Next.js 웹뷰 선행 없음)
+- [x] 지원할 소셜 로그인 플랫폼 확정 (1차 릴리즈: Google 전용)
+- [x] 인증 서비스 및 로그인 구현 방식 확정 (Supabase Auth만 사용, Next.js 웹뷰로 OAuth 처리하는 방식은 사용하지 않음)
 - [ ] `docs/architecture/01_api_design.md`에 인증 플로우 시퀀스 추가 (앱 시작/로그인/토큰 갱신/로그아웃)
 - [ ] Supabase Auth 연동 방식 확정 (OAuth redirect, deep link callback 처리)
 - [ ] Supabase `Authentication > URL Configuration` 값 확정 (`Site URL` 임시값, `Redirect URLs` 실제 앱 콜백 등록)
@@ -48,6 +53,7 @@
 ## 변경 이력
 | 날짜 | 변경 요약 | 작성자 |
 | --- | --- | --- |
+| 2026-02-27 | 지원 로그인 제공자 범위 확정 섹션 추가 (1차: Google 전용), 관련 문서 동기화 | @cursor-agent |
 | 2026-02-26 | P4(iOS + Apple) 항목을 별도 문서(`docs/todo/07_ios_release_apple_login.md`)로 분리 | @cursor-agent |
 | 2026-02-26 | P1 범위를 Android + Google 로그인으로 고정하고 iOS/Apple 항목을 P4로 분리 | @cursor-agent |
 | 2026-02-26 | `01_supabase_persistence`의 남은 MVP TODO를 소셜 로그인 선행 이슈로 이관 | @cursor-agent |

@@ -25,4 +25,4 @@ alwaysApply: true
 
 - `검증 상태`: 스크립트별 OK/SKIP/FAIL
 - `권장 커밋 단위`: 1개 또는 여러 개
-- `추천 커밋 메시지`: prefix(`feat|fix|refactor|test|docs|chore`) 포함
+- `추천 커밋 메시지`: prefix(`feat|fix|refactor|test|docs|chore`) 포함, **영문**으로 작성
