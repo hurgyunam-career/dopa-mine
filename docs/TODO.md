@@ -1,7 +1,7 @@
 # Docs TODO
 
 문서 정합성과 유지보수성을 높이기 위한 작업 목록입니다.
-마지막 업데이트: 2026-02-26
+마지막 업데이트: 2026-02-27
 
 ## Quick Inbox (신규 이슈 캡처)
 - [ ] context: 커밋 범위 밖으로 나온 신규 이슈를 빠르게 기록하기 위한 임시 수집함
@@ -30,6 +30,6 @@
 
 ## 메모
 - 기준 문서는 `docs/context/01_project_state.md`
-- 아키텍처 규칙은 `.cursor/rules/architecture-ddd.mdc`를 우선 적용
+- 코드 구조는 `docs/context/01_project_state.md` §2 As-Is를 기준으로 한다
 - 진행률 동기화: `make todo-sync`
 - 신규 이슈 기록 규칙: `context/task/priority/next_action` 4필드를 사용

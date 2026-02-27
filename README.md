@@ -42,7 +42,7 @@
 - `services`: 저장소 인터페이스 및 구현
 - `widgets`: 공용 컴포넌트
 
-목표 구조(To-Be)는 DDD Feature-first이며 상세 규칙은 `.cursor/rules/architecture-ddd.mdc`를 따릅니다.
+구조 상세는 `docs/context/01_project_state.md` §2를 참조한다.
 
 ## 7) 실행 방법
 ```bash
@@ -54,4 +54,3 @@ flutter run
 ## 8) 다음 단계
 - Mock 저장소를 실제 백엔드 연동으로 교체
 - 센서 기반 입력 확장 및 수동/센서 UX 정리
-- DDD 구조(`lib/src/features/...`)로 점진 리팩터링
