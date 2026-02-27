@@ -11,16 +11,26 @@
 - **제외(후속)**: Apple, Kakao 등 → `docs/todo/07_ios_release_apple_login.md`에서 P4로 관리
 - **근거**: Android 출시 + Google 로그인 우선 완료 후 iOS/Apple 로그인 진행
 
+## 세션/토큰 저장 정책 (확정)
+- **저장소**: secure storage 사용 (access token, refresh token)
+- **만료 시**: refresh 우선 시도, 실패 시 로컬 토큰 삭제 후 로그인 화면 유도
+- **근거**: `docs/architecture/02_auth_flow.md`, `docs/context/02_done_definition.md`
+
+## 사용자 프로필 최소 스키마 (확정)
+- **필드**: `id`, `email`, `provider`, `created_at`
+- **용도**: Supabase Auth 연동 시 클라이언트/백엔드에서 참조하는 최소 식별·표시 정보
+- **비고**: 확장 필드는 후속 요구에 따라 추가
+
 ## 상세 TODO
 - [x] 지원할 소셜 로그인 플랫폼 확정 (1차 릴리즈: Google 전용)
 - [x] 인증 서비스 및 로그인 구현 방식 확정 (Supabase Auth만 사용, Next.js 웹뷰로 OAuth 처리하는 방식은 사용하지 않음)
 - [x] `docs/architecture/02_auth_flow.md`에 인증 플로우 시퀀스 추가 (앱 시작/로그인/토큰 갱신/로그아웃)
-- [ ] Supabase Auth 연동 방식 확정 (OAuth redirect, deep link callback 처리)
+- [x] Supabase Auth 연동 방식 확정 (OAuth redirect + 앱 커스텀 스킴 딥링크 콜백 수신, `02_auth_flow.md` 2) 로그인 절 반영)
 - [ ] Supabase `Authentication > URL Configuration` 값 확정 (`Site URL` 임시값, `Redirect URLs` 실제 앱 콜백 등록)
 - [ ] 소셜 로그인 콜백 딥링크 규격 확정 (`<scheme>://<host>`), 환경별(dev/prod) 네이밍 규칙 정의
 - [ ] Flutter 라우팅 기준 로그인 게이트 정의 (미인증 진입 차단 및 복귀 경로)
-- [ ] 세션/토큰 저장 정책 확정 (secure storage 사용, 만료 시 refresh 우선)
-- [ ] 사용자 프로필 최소 스키마 확정 (`id`, `email`, `provider`, `created_at`)
+- [x] 세션/토큰 저장 정책 확정 (secure storage 사용, 만료 시 refresh 우선, 상단 §세션/토큰 저장 정책 반영)
+- [x] 사용자 프로필 최소 스키마 확정 (`id`, `email`, `provider`, `created_at`, 상단 §사용자 프로필 최소 스키마 반영)
 - [ ] 최초 로그인 시 사용자 레코드 upsert 규칙 문서화
 - [ ] 로그아웃 처리 정책 확정 (로컬 캐시 제거 범위, 진행 중 세션 보존 여부)
 - [ ] 인증 실패 에러 UX 정의 (취소/네트워크 실패/계정 충돌)
@@ -53,6 +63,7 @@
 ## 변경 이력
 | 날짜 | 변경 요약 | 작성자 |
 | --- | --- | --- |
+| 2026-02-27 | 세션/토큰 저장 정책·사용자 프로필 최소 스키마 확정 섹션 추가 및 TODO 완료 처리 | @cursor-agent |
 | 2026-02-27 | 인증 플로우 시퀀스 작업 완료 (`docs/architecture/02_auth_flow.md` 분리) | @cursor-agent |
 | 2026-02-27 | 지원 로그인 제공자 범위 확정 섹션 추가 (1차: Google 전용), 관련 문서 동기화 | @cursor-agent |
 | 2026-02-26 | P4(iOS + Apple) 항목을 별도 문서(`docs/todo/07_ios_release_apple_login.md`)로 분리 | @cursor-agent |

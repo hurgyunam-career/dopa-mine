@@ -25,7 +25,7 @@
 2. Supabase는 OAuth URL을 반환하고, 클라이언트는 외부 브라우저/웹뷰로 해당 URL을 연다.
 3. 사용자가 Google에서 인증을 완료하면 Supabase가 설정한 redirect URL로 콜백된다. (앱은 커스텀 스킴 딥링크로 수신)
 4. 앱이 콜백을 수신하면 Supabase client가 code/state를 교환해 access token과 refresh token을 획득한다.
-5. 클라이언트는 access token과 refresh token을 secure storage에 저장한다. (저장 정책: `docs/todo/02_social_login.md`의 "세션/토큰 저장 정책" 확정 후 반영)
+5. 클라이언트는 access token과 refresh token을 secure storage에 저장한다. (저장 정책: `docs/todo/02_social_login.md` §세션/토큰 저장 정책)
 6. 이후 API 호출에는 `Authorization: Bearer <access_token>`을 사용한다.
 
 ```
@@ -63,7 +63,7 @@
 1. 사용자가 로그아웃을 실행하면 클라이언트는 Supabase Auth `signOut()`을 호출한다.
 2. Supabase는 서버 측 세션을 무효화하고(해당 기능 사용 시), 클라이언트에 로컬 세션 초기화를 지시한다.
 3. 클라이언트는 secure storage에 저장된 access token, refresh token을 삭제한다.
-4. 로그아웃 처리 정책(진행 중 세션 보존 여부, 제거 범위)은 `docs/todo/02_social_login.md`의 "로그아웃 처리 정책" 확정 후 반영한다.
+4. 로그아웃 처리 정책(진행 중 세션 보존 여부, 제거 범위)은 `docs/todo/02_social_login.md` §로그아웃 처리 정책 확정 후 반영한다.
 5. 로그아웃 완료 후 로그인 화면으로 이동한다.
 
 ```
